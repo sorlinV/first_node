@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        #board p {
+            display: block;
+            position: absolute;
+        }
+    </style>
+</head>
+
+<body>
+    <form action="" id="form">
+        <input type="text" id="user" placeholder="username">
+        <input type="submit" value="Submit name">
+    </form>
+    <div id="board"></div>
+    <script>
+        let user = document.querySelector("#user");
+        let board = document.querySelector("#board");
+        let username;
+        document.querySelector("#form").addEventListener("submit", function(e) {
+            e.preventDefault();
+            if (user.value !== "") {
+                username = user.value;
+                this.innerHTML = "";
+                document.onmousemove = function(e) {};
+                setInterval(function() {
+                    fetch('http://127.1:8080/save?user=' + username + '&x=' + e.clientX + '&y=' + e.clientY);
+                    fetch('http://192.168.1.130:8080/aff').then(function(response) {
+                        console.log(response);
+                        return response.json();
+                    }).then(function(obj) {
+                        console.log(obj);
+                    });
+                }, 5000);
+            }
+        })
+    </script>
+</body>
+
+</html>
